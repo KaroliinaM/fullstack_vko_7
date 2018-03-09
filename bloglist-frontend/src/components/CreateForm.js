@@ -1,30 +1,39 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-const CreateForm=({handleSubmit, handleChange, title, author, url})=>{
+const CreateForm=(props)=>{
+
   return (
-  <div>
-    <form onSubmit={handleSubmit}>
-      title
-      <input
-        value={title}
-        onChange={handleChange}
-        name="title"
-      /> <br />
-      author
-      <input
-        value={author}
-        onChange={handleChange}
-        name="author"
-      /> <br />
-      url
-      <input
-        value={url}
-        onChange={handleChange}
-        name="url"
-      /><br />
-      <button type="submit">post</button>
-    </form>
-  </div>
-)
+    <div>
+      <form onSubmit={createBlog}>
+        title <input name="title" /> <br />
+        author
+        <input name="author" /> <br />
+        url <input name="url" /><br />
+        <button type="submit">post</button>
+      </form>
+    </div>
+  )
 }
-export default CreateForm
+
+const  createBlog=(event, props)=>{
+    event.preventDefault()
+
+    const blogObject={
+      title: event.target.title.value,
+      author: event.target.author.value,
+      url: event.target.url.value
+    }
+    console.log(blogObject)
+    console.log(props)
+  }
+const mapStateToProps=(state)=>{
+  return {
+    blogs: state.blogs
+  }
+}
+
+const ConnectedCreateForm=connect(
+  mapStateToProps
+)(CreateForm)
+export default ConnectedCreateForm
