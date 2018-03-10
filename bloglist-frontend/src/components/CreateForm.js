@@ -1,7 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {createNewBlog} from '../reducers/blogReducer'
+import blogServices from '../services/blogs'
 
 const CreateForm=(props)=>{
+  const  createBlog= async (event)=>{
+      event.preventDefault()
+
+      const blogObject={
+        title: event.target.title.value,
+        author: event.target.author.value,
+        url: event.target.url.value,
+        likes: 0
+      }
+      event.target.title.value=''
+      event.target.author.value=''
+      event.target.url.value=''
+      const blogCreated=await blogServices.create(blogObject)
+      props.createNewBlog(blogCreated)      
+    }
+
 
   return (
     <div>
@@ -34,6 +52,7 @@ const mapStateToProps=(state)=>{
 }
 
 const ConnectedCreateForm=connect(
-  mapStateToProps
+  mapStateToProps,
+  {createNewBlog}
 )(CreateForm)
 export default ConnectedCreateForm

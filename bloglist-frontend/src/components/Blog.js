@@ -2,9 +2,9 @@ import React from 'react'
 import ToggleBlog from './ToggleBlog'
 import {connect} from 'react-redux'
 
-const Blog = ({blog, whenLiked, deletion, poistettavissa}) => {
-  //  const showDeletion={display: poistettavissa ? '' : 'none' }
-  const showDeletion={display:''}
+const Blog = ({blog, whenLiked, deletion}) => {
+
+  const showDeletion={display: (blog.user.username ===(JSON.parse(window.localStorage.getItem('loggedUser')).username))||(blog.user.username===undefined) ? '' : 'none'}
 
   return (
     <div>
