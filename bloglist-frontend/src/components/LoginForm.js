@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {loginUser} from '../reducers/loginReducer'
+import {notify, actionNotified} from '../reducers/notificationReducer'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
@@ -8,13 +9,22 @@ const LoginForm=(props)=>{
   const logIn= async(event)=>{
     event.preventDefault()
     try {
-      props.loginUser({
+      await props.loginUser({
         username: event.target.username.value,
-        password:event.target.password.value
+        password: event.target.password.value
       })
+      props.notify({message: 'login succesful', messageType: 'success'})
+      //props.actionNotified('login')
+      //console.log(result)
+      //
+      // result.name!==event.target.username.value ?
+      //   props.notify({message: 'login failed', messageType: 'error'}) :
+      //   props.notify({message: 'login succesful', messageType: 'success'})
+
     } catch (exception){
       console.log(exception)
     }
+  //  console.log(props.login)
   }
   return (
     <div>
@@ -40,14 +50,16 @@ const LoginForm=(props)=>{
     </div>
   )
 }
+
 const mapStateToProps=(state)=>{
   return {
     blogs: state.blogs,
-    login:state.login
+    login:state.login,
+    notification: state.notification
   }
 }
 const ConnectLoginForm=connect(
   mapStateToProps,
-  {loginUser}
+  {loginUser, notify, actionNotified}
 )(LoginForm)
 export default ConnectLoginForm

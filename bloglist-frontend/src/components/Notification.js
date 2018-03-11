@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 
 const Notification=(props)=>{
   //console.log(this.context.store.getState())
-  if(props.message===null){
+  if(props.message===''){
     return null
   } else if(props.messageType==='error'){
     return(<div className="error">{props.message}</div>)
@@ -16,7 +16,7 @@ const Notification=(props)=>{
 
 
 
-  const mapStateToProps=(state)=>{
+const mapStateToProps=(state)=>{
     return{
       message:state.notification.message,
       messageType:state.notification.messageType

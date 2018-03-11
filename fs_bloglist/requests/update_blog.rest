@@ -1,6 +1,10 @@
-PUT http://localhost:3003/api/blogs/5a81d59b5de9bb68c40703c2
+PUT http://localhost:3003/api/blogs/5aa590cde40f0c3eb637a817
 content-type: application/json
 
 {
-    "likes":5 
-}
+    "comments": [{"id":"12", "comment": "kommentti"}],
+    "title": "uudempi kommenttitesti",
+    "author": "kirjailija",
+    "url": "ei urlia",
+    "likes": 0
+  }

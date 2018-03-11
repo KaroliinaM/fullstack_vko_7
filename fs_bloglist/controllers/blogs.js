@@ -43,9 +43,10 @@ blogRouter.post('/', async (request, response) => {
 
     const blog=new Blog({
       title: body.title,
-      author: user.name,
+      author: body.author,
       url: body.url,
       likes: body.likes===undefined ? 0 : body.likes,
+      comments: [],
       user:user._id
     })
 
@@ -91,7 +92,8 @@ blogRouter.put('/:id', async (request, response) => {
       title: body.title,
       author: body.author,
       url: body.url,
-      likes: body.likes
+      likes: body.likes,
+      comments: body.comments
     }
 
     const updatedBlog=await Blog.findByIdAndUpdate(request.params.id, blog, {new:false})

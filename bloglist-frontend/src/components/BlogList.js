@@ -1,5 +1,6 @@
 import React from 'react'
 import Blog from './Blog'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import {likeBlog, deleteBlog} from '../reducers/blogReducer'
 import {connect} from 'react-redux'
 import blogServices from '../services/blogs'
@@ -21,10 +22,12 @@ const BlogList=(props)=>{
       <h2>blogs</h2>
       {props.blogs.map(blog =>{
         return(
-      <Blog key={blog._id} blog={blog} whenLiked={likeaBlog(blog)} deletion={removeaBlog(blog._id)} />)}
+          <div key={blog._id}><Link to={`blogs/${blog._id}`}>{blog.title} {blog.author}</Link></div>
+      )}
       )}
     </div>
   )
+  //<Blog key={blog._id} blog={blog} whenLiked={likeaBlog(blog)} deletion={removeaBlog(blog._id)} />
 }
 
 
